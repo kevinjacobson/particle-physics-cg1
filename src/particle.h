@@ -11,6 +11,8 @@
 #include "foundation.h"
 
 namespace pengine{
+
+
     /**
      * Represents a particle a simple object in the physics engine
      */
@@ -52,7 +54,14 @@ namespace pengine{
              */
             real inverseMass;
 
+            //Constructor
+        public:
+            /**
+             * Default Particle constructor
+             */
+            Particle();
 
+            Particle(const Vector3 &position, const Vector3 &velocity, real mass);
 
             //Mutators
         public:
@@ -87,12 +96,44 @@ namespace pengine{
             /**
              * Returns the mass of the particle
              */
-            int getMass();
+            real getMass();
+
+            /**
+             * Returns the inverse mass of the particle
+             */
+             real getInverseMass();
 
             /**
              * Sets result to the velocity vector
              */
             void getVelocity(Vector3* result);
+
+            /**
+             * Returns the velocity of the particle
+             */
+            Vector3 getVelocity();
+
+            /**
+             * Sets result to the position of the particle
+             */
+            void getPosition(Vector3* result);
+
+            /**
+             * Returns the position of the particle
+             */
+            Vector3 getPosition();
+            
+            /**
+             * Sets result to the acceleration of the particle
+             */
+            void getAcceleration(Vector3* result);
+
+            /**
+             * Returns the acceleration of the particle
+             */
+            Vector3 getAcceleration();
+
+
 
     };
 }
