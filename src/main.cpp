@@ -7,11 +7,8 @@
  * Author: Kevin Jacobson
  */
 
-#include "pengine.h"
 #include "main.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "bloodparticlesystem.h"
 
 using namespace pengine;
 
@@ -55,7 +52,7 @@ void init() {
     bloodSystem = pengine::BloodParticleSystem(Vector3(winWidth/2,winHeight/2,0),
             Vector3(0,0,-10000000),
             Vector3(winWidth,winHeight,10000000),
-            1);
+            20);
            
     /*
     blood = glGenLists(1);
@@ -76,9 +73,10 @@ void init() {
 
 void bloodanimation() {
     curTime = glutGet(GLUT_ELAPSED_TIME);
-    dTime = (real)((curTime-prevTime)/100000.0);
+    dTime = (real)((curTime-prevTime)/1000.0);
     bloodSystem.updateSystem(dTime);
     bloodSystem.drawParticles();
+    prevTime = curTime;
 
 }
 

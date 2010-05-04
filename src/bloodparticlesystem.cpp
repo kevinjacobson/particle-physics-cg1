@@ -16,7 +16,7 @@ BloodParticleSystem::BloodParticleSystem(const Vector3& origin, const Vector3& m
 
     this->origin = origin;
 
-
+    height = 0;
 
     if (min.x > max.x) {
         this->min.x = max.x;
@@ -32,12 +32,14 @@ BloodParticleSystem::BloodParticleSystem(const Vector3& origin, const Vector3& m
     }
 
 
-    MAX_SIZE = 100000;
+    MAX_SIZE = 10000;
 
     this-> maxMagnitude = maxMagnitude;
-    gravity = Vector3(0, -.01, 0);
+    gravity = Vector3(0, -9.8, 0);
     //Initialize random-ness
     srand(time(NULL));
+
+    bounciness = .09;
 
 }
 
@@ -47,13 +49,14 @@ BloodParticleSystem::BloodParticleSystem()
 
 void BloodParticleSystem::spawnParticle() {
     real x, y, z, s;
-    x = (real) (rand() % 50 - 25);
-    y = (real) (rand() % 50 - 25);
-    z = (real) (rand() % 50 - 25);
+    x = (real) (rand() % 1000 - 500);
+    y = (real) (rand() % 1000 - 500);
+    z = (real) (rand() % 1000 - 500);
     Vector3 v = Vector3(x, y, z);
     v.normalize();
     s = maxMagnitude;
     v *= s;
+    
                      
     addParticle(v);
 
@@ -65,6 +68,10 @@ void BloodParticleSystem::updateSystem(real duration) {
    
     for (; it != particles.end(); it++) {
         it->integrate(duration);
+//        if(it->position.y < 0){
+//            it->velocity.y = -1 * it->velocity.y * bounciness;
+//            it->position.y = 0;
+//        }
     }
 
     pruneParticles();

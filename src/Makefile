@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Darwin May  4 2010) on Tue May  4 15:23:27 2010
+# Created by gmakemake (Darwin May  4 2010) on Tue May  4 16:16:11 2010
 #
 
 #
@@ -70,8 +70,8 @@ main:	main.o $(OBJFILES)
 # Dependencies
 #
 
-bloodparticlesystem.o:	GL/glut.h bloodparticlesystem.h foundation.h particle.h particleforcegen.h pengine.h precision.h
-main.o:	GL/glut.h bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
+bloodparticlesystem.o: bloodparticlesystem.h foundation.h particle.h particleforcegen.h pengine.h precision.h
+main.o:	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
 particle.o:	foundation.h particle.h precision.h
 particleforcegen.o:	foundation.h particle.h particleforcegen.h precision.h
 

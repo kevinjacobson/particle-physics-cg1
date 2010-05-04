@@ -32,8 +32,9 @@ namespace pengine {
 
         int MAX_SIZE;
 
-        
+        real bounciness;
 
+        real height;
 
     public:
         /**
