@@ -1,3 +1,9 @@
+/**
+ * File: particle.cpp
+ * Author: Mark Willson
+ * Author: Kevin Jacobson
+ */
+
 #include <assert.h>
 #include "particle.h"
 
@@ -13,8 +19,8 @@ Particle::Particle()
     inverseMass = 1;
 }
 
-Particle::Particle(const Vector3& position, const Vector3& velocity, real mass) :
-    position(position), velocity(velocity), acceleration(), forceAccum() 
+Particle::Particle(const Vector3& position, const Vector3& velocity, const Vector3& acceleration, real mass) :
+    position(position), velocity(velocity), acceleration(acceleration), forceAccum() 
 {
     inverseMass = 1/mass;
     
@@ -30,7 +36,8 @@ void Particle::integrate(real duration)
 
     //Calculate acceleration
     Vector3 resultingAcc = acceleration;
-    resultingAcc.addScaledVector(forceAccum, inverseMass);
+
+    //resultingAcc.addScaledVector(forceAccum, inverseMass);
 
     //Update linear velocity from the acceleration
     velocity.addScaledVector(resultingAcc,duration);

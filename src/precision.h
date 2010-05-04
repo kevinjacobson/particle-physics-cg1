@@ -1,6 +1,7 @@
 /* 
  * File:   precision.h
- * Author: Kevin Jacobson
+ * Author: Mark Willson
+ * Author: Kevin Jacobsonn
  *
  * Created on April 27, 2010, 3:58 PM
  */

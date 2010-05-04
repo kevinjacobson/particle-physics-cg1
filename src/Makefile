@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Darwin Apr 28 2010) on Thu Apr 29 17:00:21 2010
+# Created by gmakemake (Darwin May  4 2010) on Tue May  4 15:23:27 2010
 #
 
 #
@@ -39,21 +39,23 @@ LINK.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 COMPILE.c = $(CC) $(CFLAGS) $(CPPFLAGS) -c
 COMPILE.cc = $(CXX) $(CXXFLAGS) $(CPPFLAGS) -c
 
-########## Default flags (redefine these with a header.mak file if desired)
-CXXFLAGS =	-ggdb -Wall -ansi -pedantic
-CFLAGS =	-ggdb -Wall -ansi -pedantic
-CLIBFLAGS =	-lm
-CCLIBFLAGS =	
-########## End of default flags
+########## Flags from header.mak
+
+CXXFLAGS = -ggdb -Wall -ansi -pedantic -lm -lglut -lGLU -lGL
+CFLAGS = -ggdb -Wall -ansi -pedantic
+CLIBFLAGS = -lm
+CCLIBFLAGS = 
+
+########## End of flags from header.mak
 
 
-CPP_FILES =	drawableparticle.cpp main.cpp particle.cpp particleforcegen.cpp
+CPP_FILES =	bloodparticlesystem.cpp main.cpp particle.cpp particleforcegen.cpp
 C_FILES =	
 S_FILES =	
-H_FILES =	drawableparticle.h foundation.h particle.h particleforcegen.h pengine.h precision.h
+H_FILES =	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
 SOURCEFILES =	$(H_FILES) $(CPP_FILES) $(C_FILES) $(S_FILES)
 .PRECIOUS:	$(SOURCEFILES)
-OBJFILES =	drawableparticle.o particle.o particleforcegen.o 
+OBJFILES =	bloodparticlesystem.o particle.o particleforcegen.o 
 
 #
 # Main targets
@@ -68,8 +70,8 @@ main:	main.o $(OBJFILES)
 # Dependencies
 #
 
-drawableparticle.o:	drawableparticle.h foundation.h particle.h precision.h
-main.o:	drawableparticle.h foundation.h particle.h particleforcegen.h pengine.h precision.h
+bloodparticlesystem.o:	GL/glut.h bloodparticlesystem.h foundation.h particle.h particleforcegen.h pengine.h precision.h
+main.o:	GL/glut.h bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
 particle.o:	foundation.h particle.h precision.h
 particleforcegen.o:	foundation.h particle.h particleforcegen.h precision.h
 

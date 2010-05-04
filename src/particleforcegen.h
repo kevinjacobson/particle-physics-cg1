@@ -1,5 +1,6 @@
 /* 
  * File:   particleforcegen.h
+ * Author: Mark Willson
  * Author: Kevin Jacobson
  *
  * Created on April 27, 2010, 5:10 PM

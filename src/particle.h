@@ -1,5 +1,6 @@
 /* 
  * File:   particle.h
+ * Author: Mark Willson
  * Author: Kevin Jacobson
  *
  * Created on April 27, 2010, 4:39 PM
@@ -61,7 +62,7 @@ namespace pengine{
              */
             Particle();
 
-            Particle(const Vector3 &position, const Vector3 &velocity, real mass);
+            Particle(const Vector3 &position, const Vector3 &velocity, const Vector3 &acceleration, real mass);
 
             //Mutators
         public:

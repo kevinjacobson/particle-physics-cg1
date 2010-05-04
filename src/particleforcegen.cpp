@@ -1,3 +1,11 @@
+/*
+ * File: particleforcegen.cpp
+ *
+ * Author: Mark Willson
+ * Author: Kevin Jacobson
+ *
+ */
+
 #include "particleforcegen.h"
 
 using namespace pengine;

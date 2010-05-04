@@ -1,4 +1,8 @@
 /**
+ * File: pengine.h
+ * Author: Mark Willson
+ * Author: Kevin Jacobson
+ * 
  * Includes all the dependencies for the pengine
  */
 
