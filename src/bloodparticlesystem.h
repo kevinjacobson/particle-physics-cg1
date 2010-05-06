@@ -12,13 +12,14 @@
 #include <stdlib.h>
 #include <vector>
 #include "pengine.h"
+#include "particlesystem.h"
 #include "GL/glut.h"
 
 namespace pengine {
 
-    class BloodParticleSystem
+    class BloodParticleSystem : public ParticleSystem
     {
-        Vector3 origin; //Point from which all blood spawns
+/*        Vector3 origin; //Point from which all blood spawns
 
         Vector3 min; 
 
@@ -35,7 +36,7 @@ namespace pengine {
         real bounciness;
 
         real height;
-
+*/
     public:
         /**
          * Constructs a new blood spurting geiser
@@ -44,33 +45,33 @@ namespace pengine {
          * @param max top-right corner of bounds
          * @param maxMagnitude max speed of spawned particle
          */
-        BloodParticleSystem(const Vector3& origin, const Vector3& min, const Vector3& max, const real maxMagnitude);
+        BloodParticleSystem(const Vector3& origin, const Vector3& min, const Vector3& max, const real maxMagnitude, const Vector3& gravity);
 
-        BloodParticleSystem();
+        BloodParticleSystem() : ParticleSystem() {};
         
         /**
          * Spawns a new particle at the origin
          */
-        void spawnParticle();
+        virtual void spawnParticle();
 
-        /**
-         * Updates all particles in the system
-         */
+        /*
+          Updates all particles in the system
+         
         void updateSystem(real duration);
-        
+        */
         /*
          * Uses OpenGL to draw each particle
          */
-        void drawParticles();
+        virtual void drawParticles();
 
-        int getNumParticles(){
+/*        int getNumParticles(){
             return particles.size();
-        }
-    private:
+        }*/
+    protected:
 
-        void addParticle(const Vector3& velocity);
+        //void addParticle(const Vector3& velocity);
 
-        void pruneParticles();
+        //void pruneParticles();
 
     
 

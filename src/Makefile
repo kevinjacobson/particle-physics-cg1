@@ -52,7 +52,7 @@ CCLIBFLAGS =
 CPP_FILES =	bloodparticlesystem.cpp main.cpp particle.cpp particleforcegen.cpp
 C_FILES =	
 S_FILES =	
-H_FILES =	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
+H_FILES =	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h particlesystem.h
 SOURCEFILES =	$(H_FILES) $(CPP_FILES) $(C_FILES) $(S_FILES)
 .PRECIOUS:	$(SOURCEFILES)
 OBJFILES =	bloodparticlesystem.o particle.o particleforcegen.o 

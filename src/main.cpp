@@ -52,7 +52,8 @@ void init() {
     bloodSystem = pengine::BloodParticleSystem(Vector3(winWidth/2,winHeight/2,0),
             Vector3(0,0,-10000000),
             Vector3(winWidth,winHeight,10000000),
-            20);
+            20,
+            Vector3(0,-9.8,0));
            
     /*
     blood = glGenLists(1);
