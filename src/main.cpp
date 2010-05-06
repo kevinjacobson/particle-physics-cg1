@@ -74,7 +74,7 @@ void init() {
 void bloodanimation() {
     curTime = glutGet(GLUT_ELAPSED_TIME);
     dTime = (real)((curTime-prevTime)/1000.0);
-    bloodSystem.updateSystem(dTime);
+    bloodSystem.updateSystem(dTime+.0001);
     bloodSystem.drawParticles();
     prevTime = curTime;
 
