@@ -1,5 +1,5 @@
 #
-# Created by gmakemake (Darwin May  4 2010) on Tue May  4 16:16:11 2010
+# Created by gmakemake (Darwin May  4 2010) on Sun May 16 21:18:42 2010
 #
 
 #
@@ -49,13 +49,13 @@ CCLIBFLAGS =
 ########## End of flags from header.mak
 
 
-CPP_FILES =	bloodparticlesystem.cpp main.cpp particle.cpp particleforcegen.cpp
+CPP_FILES =	bloodparticlesystem.cpp main.cpp particle.cpp particleforcegen.cpp smokeparticlesystem.cpp
 C_FILES =	
 S_FILES =	
-H_FILES =	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h particlesystem.h
+H_FILES =	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h particlesystem.h pengine.h precision.h smokeparticlesystem.h
 SOURCEFILES =	$(H_FILES) $(CPP_FILES) $(C_FILES) $(S_FILES)
 .PRECIOUS:	$(SOURCEFILES)
-OBJFILES =	bloodparticlesystem.o particle.o particleforcegen.o 
+OBJFILES =	bloodparticlesystem.o particle.o particleforcegen.o smokeparticlesystem.o 
 
 #
 # Main targets
@@ -70,10 +70,11 @@ main:	main.o $(OBJFILES)
 # Dependencies
 #
 
-bloodparticlesystem.o: bloodparticlesystem.h foundation.h particle.h particleforcegen.h pengine.h precision.h
-main.o:	bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h pengine.h precision.h
+bloodparticlesystem.o:	 bloodparticlesystem.h foundation.h particle.h particleforcegen.h particlesystem.h pengine.h precision.h
+main.o:	 bloodparticlesystem.h foundation.h main.h particle.h particleforcegen.h particlesystem.h pengine.h precision.h
 particle.o:	foundation.h particle.h precision.h
 particleforcegen.o:	foundation.h particle.h particleforcegen.h precision.h
+smokeparticlesystem.o:	 foundation.h particle.h particleforcegen.h particlesystem.h pengine.h precision.h smokeparticlesystem.h
 
 #
 # Housekeeping

@@ -16,4 +16,6 @@ void mymouse(int button, int state, int x, int y);
 
 void myreshape(int width, int height);
 
+void mykeyboard(unsigned char key, int x, int y);
+
 

@@ -9,22 +9,21 @@
 
 #include "main.h"
 #include "bloodparticlesystem.h"
+#include "smokeparticlesystem.h"
 
 using namespace pengine;
 
 GLsizei winWidth = 400, winHeight = 400;
+float eyeX=0.0f, eyeY=1.75f, eyeZ=5.0f, lx=0.0f, ly=0.0f, lz=-1.0f;
+float theta=0.0f;
+float phi=0.0f;
 GLuint blood, fireworks, displayNum;
 int curTime,prevTime;
+int animationNum = 1;
 real dTime;
 
+SmokeParticleSystem smokeSystem;
 BloodParticleSystem bloodSystem;
-
-
-
-
-
-
-
 
 int main(int argc, char **argv)
 {
@@ -32,12 +31,11 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
     glutInitWindowPosition(0,0);
     glutInitWindowSize(winWidth,winHeight);
-    glutCreateWindow("Group 8 Project");
-
-
+    glutCreateWindow("Group 8 Presents Eyjafjallojokull!!");
     glutMouseFunc(mymouse);
     glutReshapeFunc(myreshape);
     glutDisplayFunc(mydisplay);
+    glutKeyboardFunc(mykeyboard);
     init();
     glutMainLoop();
 
@@ -46,89 +44,164 @@ int main(int argc, char **argv)
 
 void init() {
    
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-    glMatrixMode(GL_PROJECTION);
-    gluOrtho2D(0.0, winWidth, 0.0, winHeight);
-    bloodSystem = pengine::BloodParticleSystem(Vector3(winWidth/2,winHeight/2,0),
-            Vector3(0,0,-10000000),
-            Vector3(winWidth,winHeight,10000000),
-            20,
-            Vector3(0,-9.8,0));
-           
-    /*
-    blood = glGenLists(1);
-    glNewList(blood,GL_COMPILE);
-        bloodanimation();
-    glEndList();
+    glClearColor(0,0,0,0);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    smokeSystem = pengine::SmokeParticleSystem(Vector3(0,3,-7),
+            2,
+            Vector3(0,4,0));
+    bloodSystem = pengine::BloodParticleSystem(Vector3(0,3,-7),
+            3,
+            Vector3(0,-5,0));
+    glEnable(GL_DEPTH_TEST);
 
-    //fireworks
-    fireworks = glGenLists(1);
-    glNewList(fireworks,GL_COMPILE);
-        fireworksanimation();
-    glEndList();
-     */
-
-    prevTime = glutGet(GLUT_ELAPSED_TIME);
 
 }//init
 
 void bloodanimation() {
-    curTime = glutGet(GLUT_ELAPSED_TIME);
     dTime = (real)((curTime-prevTime)/1000.0);
     bloodSystem.updateSystem(dTime+.0001);
+    //if(animationNum==1)
     bloodSystem.drawParticles();
-    prevTime = curTime;
+//    prevTime = curTime;
 
 }
 
-void fireworksanimation() {
+void smokeanimation() {
+    dTime = (real)((curTime-prevTime)/1000.0);
+    smokeSystem.updateSystem(dTime+.0001);
+    //if(animationNum==2)
+    smokeSystem.drawParticles();
+//    prevTime = curTime;
 
+}
+
+void drawGrid() {
+    glColor4f(1.0f,1.0f,0.0f,1.0f);
+    for(int i = -50; i < 50; i++)
+    {
+        glBegin(GL_LINES);
+        glVertex3f(-50,0,i);
+        glVertex3f(50,0,i);
+        glVertex3f(i,0,50);
+        glVertex3f(i,0,-50);
+    }
+}
+
+
+void drawVolcano(){
+    glPushMatrix();
+    glTranslatef(0,0,-7);
+    glRotatef(270,1,0,0);
+    glColor4f(.63f,.32f,.176f,1.0f);
+    glutSolidCone(2,3,12,12);
+    glPopMatrix();
 }
 
 void mydisplay() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glClear(GL_COLOR_BUFFER_BIT);
-/*
-    switch(displayNum) {
-    //Blood
-    case 1:
-        glCallList(blood);
-        break;
-    //Fireworks
-    case 2:
-        glCallList(fireworks);
-        break;
-    default:
-        break;
-    }
-*/
+    glMatrixMode(GL_MODELVIEW);
+    
+    drawGrid();
+    curTime = glutGet(GLUT_ELAPSED_TIME);
     bloodanimation();
-    glFlush();
+    smokeanimation();
+    prevTime = curTime;
+    drawVolcano();
     glutSwapBuffers();
     glutPostRedisplay();
-    int i;
-    for(i=0;i<10000;i++){}
 
+    
 }//mydisplay
 
-void mymouse(int button, int state, int x, int y) {
-/*
-    if(state == GLUT_UP) {
-        displayNum++;
-        glutPostRedisplay();
+
+void moveFlat(int i)
+{
+    eyeX = eyeX +  i * lx * .1;
+    eyeY = eyeY +  i * ly * .1;
+    eyeZ = eyeZ +  i * lz * .1;
+    glLoadIdentity();
+    gluLookAt(eyeX,eyeY,eyeZ,
+              eyeX+lx, eyeY+ly, eyeZ+lz,
+              0,1,0);
+}
+
+void orientY(float ang) {
+    lx = sin(ang);
+    lz = -cos(ang);
+    glLoadIdentity();
+    gluLookAt(eyeX,eyeY,eyeZ,
+              eyeX+lx, eyeY+ly, eyeZ+lz,
+              0,1,0);
+}
+
+void orientX(float ang) {
+    ly = sin(ang);
+    lz = -cos(ang);
+    glLoadIdentity();
+    gluLookAt(eyeX, eyeY, eyeZ,
+              eyeX+lx, eyeY+ly, eyeZ+lz,
+              0,1,0);
+
+}
+
+void mykeyboard(unsigned char key, int x, int y) {
+    switch (key) {
+        case 'w': case 'W':
+            moveFlat(1); break;
+        case 's': case 'S':
+            moveFlat(-1); break;
+        case 'a': case 'A':
+            theta  -= 0.1f;
+            orientY(theta);
+            break;
+        case 'd': case 'D':
+            theta += 0.1f;
+            orientY(theta);
+            break;
+         case 'q': case 'Q':
+            phi += 0.1f;
+            orientX(phi);
+            break;
+         case 'z': case 'Z':
+            phi -= 0.1f;
+            orientX(phi);
+            break;
+
+        
     }
- */
+}
+
+void mymouse(int button, int state, int x, int y) {
+
+    int temp = animationNum;
+    if(state==GLUT_UP) {
+      if(animationNum==1) {
+        temp = 2;
+      }else if(animationNum==2) {
+        temp = 1;
+      }
+      animationNum = temp;
+    }
 
 }//mymouse
 
 void myreshape(int width, int height) {
-
+    if(height == 0)
+    {
+       height = 1;
+    }
+    float ratio =  1.0f * width / height;
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, GLdouble(width), 0.0, GLdouble(height));
-    winWidth = width;
-    winHeight = height;
-    glClear(GL_COLOR_BUFFER_BIT);
+    glViewport(0,0,width,height);
 
+    gluPerspective(45,ratio,1,1000);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt(eyeX,eyeY,eyeZ,
+              eyeX+lx,eyeY+ly,eyeZ+lz,
+              0.0f,1.0f,0.0);
 }//myreshape
 

@@ -45,7 +45,7 @@ namespace pengine {
          * @param max top-right corner of bounds
          * @param maxMagnitude max speed of spawned particle
          */
-        BloodParticleSystem(const Vector3& origin, const Vector3& min, const Vector3& max, const real maxMagnitude, const Vector3& gravity);
+        BloodParticleSystem(const Vector3& origin, const real maxMagnitude, const Vector3& gravity);
 
         BloodParticleSystem() : ParticleSystem() {};
         

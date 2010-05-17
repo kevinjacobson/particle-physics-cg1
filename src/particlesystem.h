@@ -16,7 +16,6 @@
 #include "pengine.h"
 #include "GL/glut.h"
 
-#define MAX_PARTICLES 10000
 
 namespace pengine {
     
@@ -38,26 +37,14 @@ namespace pengine {
 
         real bounciness;
 
+        int maxParticles;
+
     public:
         /**
          * Constructs a new system
          */
-         ParticleSystem(const Vector3& origin, const Vector3& min, const Vector3& max, const real maxMagnitude, const Vector3& gravity){
+         ParticleSystem(const Vector3& origin, const real maxMagnitude, const Vector3& gravity){
              this->origin = origin;
-             
-             if (min.x > max.x) {
-                 this->min.x = max.x;
-                 this->max.x = min.x;
-             }
-             if (min.y > max.y) {
-                 this->min.y = max.y;
-                 this->max.y = min.y;
-             }
-             if (min.z > max.z) {
-                 this->min.z = max.z;
-                 this->max.z = min.z;
-             }
-
              this->maxMagnitude = maxMagnitude;
              this->gravity = gravity;
              srand(time(NULL));
@@ -74,10 +61,6 @@ namespace pengine {
 
              for(; it!= particles.end(); it++) {
                  it->integrate(duration);
-                 if (it->position.y < 0){
-                     it->velocity.y = -1 * it->velocity.y * bounciness;
-                     it->position.y = 0;
-                 }
              }
             
          }
@@ -87,16 +70,28 @@ namespace pengine {
          int getNumParticles() {
              return particles.size();
          }
+
+         std::vector <Vector3> getPositions() {
+             std::vector<Vector3> positions;
+             std::vector <Particle>::iterator it = particles.begin();
+             for(; it!=particles.end(); it++)
+             {
+                 positions.push_back(it->position);
+             }
+             return positions;
+         }
+
     protected:
         
         void addParticle(const Vector3& velocity) {
             particles.push_back(Particle(origin,velocity,gravity,1));
+            pruneParticles();
         }
 
         void pruneParticles() {
-            if(particles.size() > MAX_PARTICLES) {
+            if(particles.size() > maxParticles) {
                 std::vector <Particle>::iterator it = particles.begin();
-                particles.erase(it,it+(getNumParticles()-MAX_PARTICLES));
+                particles.erase(it,it+(getNumParticles()-maxParticles));
             }
         }
 
@@ -104,5 +99,7 @@ namespace pengine {
     };
     
 }
+
+
 
 #endif /*__PARTICLESYSTEM_H__*/
