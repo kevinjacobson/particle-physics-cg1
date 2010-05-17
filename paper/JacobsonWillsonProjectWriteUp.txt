@@ -1,0 +1,45 @@
+Project Write-Up
+Group Members:
+Kevin Jacobson
+Mark Willson
+
+Topic:
+Particle Physics
+
+Project Goal:
+The goal of this project is to get a better understanding of using a combination
+of Computer Graphics, Classical Mechanics, and Artistic Design to develop a
+simple system which can both simulate, animate and render multiple 
+particles using classical particle physics equations as well as some addition
+mathematics to simulate certain behaviors. Some features we'd like to create
+include magnetism, smoke and fire.
+
+Approach:
+Using an iterative approach we'd like to do the following:
+1. Research a behavior we'd like to simulate
+2. Develop a simulation of this behavior/add to existing simulation
+3. Use OpenGL to render the particles that are taking part in this simulation
+4. Tune up code for accuracy
+5. Go to step 1 for new behavior
+
+Challenges:
+1. Ensuring the code is portable
+2. Dividing up work between group members
+3. Accurately modelling physics
+4. Ensuring the CPU is not over-strained by the simulation
+5. Understanding some of the more complex visual components of the simulation
+
+Achievements:
+1. Created a working engine which demonstrates basic particle physics properties
+2. A couple of basic examples of systems which mimic real world phenomena:
+    smoke and blood splatter(or lava, depending on how you see it)
+3. System which takes advantage of polymorphism for easy creation of effects
+
+Limitations:
+1. Time limited; only able to create a couple of effects
+2. Limited knowledge of physics
+
+Future Work:
+1. Create more effects that inherit from "particlesystem" class
+2. Ability to pass function in to spawnParticle() to have dynamic particle origins
+3. More forces and better equations for more realistic physics 

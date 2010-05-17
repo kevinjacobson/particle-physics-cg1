@@ -1,0 +1,14 @@
+GROUP 8 - Particle Physics
+
+BUILDING THE PROJECT:
+
+To build the project cd to the src directory and run the "make" command
+
+RUNNING THE PROJECT:
+
+Execute the "main" executable, created from the earlier make
+
+CONTROLS:
+w/s - Move camera back and forward
+a/d - Rotate camera left and right
+q/z - Rotate camera up and down
